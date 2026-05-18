@@ -87,23 +87,25 @@ export default async function AdminDashboard() {
                     <td colSpan={4} className="p-8 text-center text-text-muted">No recent requests</td>
                   </tr>
                 ) : (
-                  recentWithdrawals.map((req, i) => (
-                    <tr key={i} className="hover:bg-white/5 transition-colors">
-                      <td className="p-4 text-white font-medium">{req.user.email || req.user.name}</td>
-                      <td className="p-4 font-mono text-green-400">${req.amountCash.toFixed(2)}</td>
-                      <td className="p-4 text-gray-300">{req.method}</td>
-                      <td className="p-4">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
-                          req.status === 'PENDING' ? 'bg-yellow-500/10 text-yellow-500' : 
-                          req.status === 'APPROVED' ? 'bg-blue-500/10 text-blue-400' :
-                          req.status === 'PAID' ? 'bg-green-500/10 text-green-500' :
-                          'bg-red-500/10 text-red-500'
-                        }`}>
-                          {req.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))
+                  <>
+                    {recentWithdrawals.map((req, i) => (
+                      <tr key={i} className="hover:bg-white/5 transition-colors">
+                        <td className="p-4 text-white font-medium">{req.user.email || req.user.name}</td>
+                        <td className="p-4 font-mono text-green-400">${req.amountCash.toFixed(2)}</td>
+                        <td className="p-4 text-gray-300">{req.method}</td>
+                        <td className="p-4">
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
+                            req.status === 'PENDING' ? 'bg-yellow-500/10 text-yellow-500' : 
+                            req.status === 'APPROVED' ? 'bg-blue-500/10 text-blue-400' :
+                            req.status === 'PAID' ? 'bg-green-500/10 text-green-500' :
+                            'bg-red-500/10 text-red-500'
+                          }`}>
+                            {req.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
                 )}
               </tbody>
             </table>

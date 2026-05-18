@@ -127,7 +127,8 @@ export function AdminWithdrawalsClient() {
                   <td colSpan={7} className="p-8 text-center text-text-muted">No withdrawals found.</td>
                 </tr>
               ) : (
-                withdrawals.map((req) => (
+                <>
+                  {withdrawals.map((req) => (
                   <tr key={req.id} className="hover:bg-white/[0.02] transition-colors">
                     <td className="p-4 font-mono text-gray-400 text-xs">{req.id.split('-')[0]}</td>
                     <td className="p-4">
@@ -180,7 +181,8 @@ export function AdminWithdrawalsClient() {
                       )}
                     </td>
                   </tr>
-                ))
+                  ))}
+                </>
               )}
             </tbody>
           </table>

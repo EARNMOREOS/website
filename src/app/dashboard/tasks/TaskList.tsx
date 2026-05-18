@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "next";
+import { useState, useEffect } from "react";
 import { CheckCircle2, PlayCircle, Zap, Target } from "lucide-react";
 
 type Task = {
