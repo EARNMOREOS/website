@@ -2,13 +2,8 @@ import { ArrowDown, ArrowUp, Users, Banknote, Activity, Target } from "lucide-re
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-
-type RecentWithdrawal = Prisma.WithdrawalGetPayload<{
-  include: { user: { select: { email: true, name: true } } }
-}>;
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -92,7 +87,7 @@ export default async function AdminDashboard() {
                   </tr>
                 ) : (
                   <>
-                    {recentWithdrawals.map((req: RecentWithdrawal, i: number) => (
+                    {recentWithdrawals.map((req: any, i: number) => (
                       <tr key={i} className="hover:bg-white/5 transition-colors">
                         <td className="p-4 text-white font-medium">{req.user.email || req.user.name}</td>
                         <td className="p-4 font-mono text-green-400">${req.amountCash.toFixed(2)}</td>
