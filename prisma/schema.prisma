@@ -1,0 +1,134 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(USER)
+  
+  // Wallet
+  coins         Int       @default(0)
+  
+  // Referral System
+  referralCode  String    @unique
+  referredById  String?
+  referredBy    User?     @relation("Referrals", fields: [referredById], references: [id])
+  referrals     User[]    @relation("Referrals")
+  
+  // Relations
+  transactions  Transaction[]
+  withdrawals   Withdrawal[]
+  tasksCompleted UserTask[]
+  accounts      Account[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  amount    Int
+  type      TxType
+  status    TxStatus @default(COMPLETED)
+  description String?
+  createdAt DateTime @default(now())
+}
+
+enum TxType {
+  EARN_TASK
+  EARN_REFERRAL
+  WITHDRAWAL
+  BONUS
+}
+
+enum TxStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  rewardCoins Int
+  type        TaskType
+  url         String?  // e.g. for video or visit task
+  isActive    Boolean  @default(true)
+  usersCompleted UserTask[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum TaskType {
+  WATCH_VIDEO
+  VISIT_SITE
+  INSTALL_APP
+  DAILY_CHECKIN
+}
+
+model UserTask {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id])
+  completedAt DateTime @default(now())
+
+  @@unique([userId, taskId])
+}
+
+model Withdrawal {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  amountCoins   Int
+  amountCash    Float
+  method        String   // UPI, PayPal, etc.
+  details       String   // Account details (e.g. UPI ID)
+  status        WStatus  @default(PENDING)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum WStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PAID
+}
