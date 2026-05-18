@@ -2,8 +2,13 @@ import { ArrowDown, ArrowUp, Users, Banknote, Activity, Target } from "lucide-re
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+
+type RecentWithdrawal = Prisma.WithdrawalGetPayload<{
+  include: { user: { select: { email: true, name: true } } }
+}>;
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -15,12 +20,12 @@ export default async function AdminDashboard() {
   // Fetch real stats
   const totalUsers = await prisma.user.count({ where: { role: "USER" } });
   const tasksCompleted = await prisma.userTask.count();
-  
+
   const pendingWithdrawalsAggregate = await prisma.withdrawal.aggregate({
     where: { status: "PENDING" },
     _sum: { amountCash: true }
   });
-  
+
   const pendingAmount = pendingWithdrawalsAggregate._sum.amountCash || 0;
 
   const recentWithdrawals = await prisma.withdrawal.findMany({
@@ -48,11 +53,10 @@ export default async function AdminDashboard() {
               <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400">
                 <stat.icon className="w-5 h-5" />
               </div>
-              <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full ${
-                stat.up 
-                  ? "bg-green-500/10 text-green-500" 
+              <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full ${stat.up
+                  ? "bg-green-500/10 text-green-500"
                   : "bg-yellow-500/10 text-yellow-500"
-              }`}>
+                }`}>
                 {stat.change}
               </div>
             </div>
@@ -64,7 +68,7 @@ export default async function AdminDashboard() {
 
       {/* Main Charts / Data Area */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-        
+
         {/* Recent Withdrawals */}
         <div className="lg:col-span-2 bg-[#111111] border border-white/5 rounded-xl overflow-hidden">
           <div className="p-6 border-b border-white/5 flex justify-between items-center">
@@ -88,18 +92,17 @@ export default async function AdminDashboard() {
                   </tr>
                 ) : (
                   <>
-                    {recentWithdrawals.map((req: any, i) => (
+                    {recentWithdrawals.map((req: RecentWithdrawal, i: number) => (
                       <tr key={i} className="hover:bg-white/5 transition-colors">
                         <td className="p-4 text-white font-medium">{req.user.email || req.user.name}</td>
                         <td className="p-4 font-mono text-green-400">${req.amountCash.toFixed(2)}</td>
                         <td className="p-4 text-gray-300">{req.method}</td>
                         <td className="p-4">
-                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
-                            req.status === 'PENDING' ? 'bg-yellow-500/10 text-yellow-500' : 
-                            req.status === 'APPROVED' ? 'bg-blue-500/10 text-blue-400' :
-                            req.status === 'PAID' ? 'bg-green-500/10 text-green-500' :
-                            'bg-red-500/10 text-red-500'
-                          }`}>
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${req.status === 'PENDING' ? 'bg-yellow-500/10 text-yellow-500' :
+                              req.status === 'APPROVED' ? 'bg-blue-500/10 text-blue-400' :
+                                req.status === 'PAID' ? 'bg-green-500/10 text-green-500' :
+                                  'bg-red-500/10 text-red-500'
+                            }`}>
                             {req.status}
                           </span>
                         </td>
