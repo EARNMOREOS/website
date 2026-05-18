@@ -3,7 +3,11 @@ import { prisma } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -11,7 +15,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const withdrawalId = params.id;
+    const withdrawalId = id;
     const { status } = await req.json();
 
     if (!["APPROVED", "REJECTED", "PAID"].includes(status)) {
