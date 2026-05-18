@@ -88,7 +88,7 @@ export default async function AdminDashboard() {
                   </tr>
                 ) : (
                   <>
-                    {recentWithdrawals.map((req, i) => (
+                    {recentWithdrawals.map((req: any, i) => (
                       <tr key={i} className="hover:bg-white/5 transition-colors">
                         <td className="p-4 text-white font-medium">{req.user.email || req.user.name}</td>
                         <td className="p-4 font-mono text-green-400">${req.amountCash.toFixed(2)}</td>
