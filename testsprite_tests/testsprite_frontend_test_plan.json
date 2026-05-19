@@ -1,0 +1,831 @@
+[
+  {
+    "id": "TC001",
+    "title": "Sign in and reach the dashboard",
+    "description": "An existing user can sign in with valid credentials and land on the authenticated dashboard.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify authenticated account information is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Create a new account with an optional referral code",
+    "description": "A new user can sign up with the required account details and an optional referral code, and is taken to a successful post-registration state.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signup"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a unique display name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the referral code field with a referral code"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a registration success confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Approve a withdrawal request as an admin",
+    "description": "An authenticated admin can approve a pending withdrawal request and see its status update.",
+    "category": "Admin Withdrawal Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the admin withdrawals section link"
+      },
+      {
+        "type": "action",
+        "description": "Approve a pending withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the request status is updated to approved"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Complete a task and earn coins",
+    "description": "An authenticated user can complete a task from the task list and see the reward reflected in their account activity.",
+    "category": "Task Earning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open tasks"
+      },
+      {
+        "type": "action",
+        "description": "Start a task"
+      },
+      {
+        "type": "action",
+        "description": "Complete the task action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the task is marked complete"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updated earnings are visible in the account activity"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Submit a PayPal withdrawal request",
+    "description": "A logged-in user can choose PayPal, enter payout details, submit a withdrawal request, and receive confirmation.",
+    "category": "Withdrawal Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the wallet"
+      },
+      {
+        "type": "action",
+        "description": "Select PayPal as the payout method"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the payout detail field with a valid PayPal account identifier"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid withdrawal amount"
+      },
+      {
+        "type": "action",
+        "description": "Submit the withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a withdrawal confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Review pending withdrawals as an admin",
+    "description": "An authenticated admin can open withdrawal management and view pending requests.",
+    "category": "Admin Withdrawal Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the admin withdrawals section link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify pending withdrawal requests are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Mark an approved withdrawal as paid",
+    "description": "An authenticated admin can mark an approved withdrawal as paid and see the payment status update.",
+    "category": "Admin Withdrawal Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the admin withdrawals section link"
+      },
+      {
+        "type": "action",
+        "description": "Mark an approved withdrawal as paid"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the request status is updated to paid"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Reject a withdrawal request as an admin",
+    "description": "An authenticated admin can reject a pending withdrawal request and see its status update.",
+    "category": "Admin Withdrawal Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the admin withdrawals section link"
+      },
+      {
+        "type": "action",
+        "description": "Reject a pending withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the request status is updated to rejected"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "View updated balance after earning coins",
+    "description": "An authenticated user can see their balance and recent earnings reflected after completing a task.",
+    "category": "Task Earning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open tasks"
+      },
+      {
+        "type": "action",
+        "description": "Start a task"
+      },
+      {
+        "type": "action",
+        "description": "Complete the task action"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to return to the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the balance is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recent activity reflects the earned coins"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Load the task list after signing in",
+    "description": "An authenticated user can open the task page and see available tasks ready to start.",
+    "category": "Task Earning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open tasks"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify available tasks are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the task list is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Copy and review referral link details",
+    "description": "An authenticated member can open referrals, copy their personalized invite link, and review referral earnings and invited users.",
+    "category": "Referral Sharing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the referrals section link"
+      },
+      {
+        "type": "action",
+        "description": "Click the copy link control"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a confirmation of copied link is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify referral earnings and invited users are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Review withdrawal history after submitting a request",
+    "description": "A logged-in user can open the wallet after submitting a withdrawal request and see the new transaction in history.",
+    "category": "Withdrawal Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the wallet"
+      },
+      {
+        "type": "action",
+        "description": "Select PayPal as the payout method"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the payout detail field with a valid PayPal account identifier"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid withdrawal amount"
+      },
+      {
+        "type": "action",
+        "description": "Submit the withdrawal request"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the wallet history to update"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new withdrawal appears in transaction history"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the withdrawal status is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "View a personalized referral link after login",
+    "description": "An authenticated member can reach the referrals page and see a personalized invite link.",
+    "category": "Referral Sharing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the referrals section link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a personalized referral link is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Keep access to the dashboard after refreshing the session",
+    "description": "An authenticated user remains signed in while navigating to protected areas during the same browser session.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open tasks"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to return to the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard remains accessible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user stays signed in"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Review referral earnings and invited users after login",
+    "description": "An authenticated member can open referrals and see their referral performance summary.",
+    "category": "Referral Sharing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the referrals section link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify referral earnings are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify invited users are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Open the referral page and copy the invite link",
+    "description": "An authenticated user can open referrals, copy their personalized invite link, and review referral performance details.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open referrals"
+      },
+      {
+        "type": "action",
+        "description": "Copy the referral link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a referral link confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify referral earnings and invited users are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Open referral sharing from the public site",
+    "description": "A visitor can navigate from the landing page to sign up or log in to access the referral experience.",
+    "category": "Referral Sharing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the sign up link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the sign up page is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Navigate back to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the log in link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC018",
+    "title": "See validation when withdrawal amount is too low",
+    "description": "A logged-in user sees a validation message when trying to request a withdrawal below the minimum amount.",
+    "category": "Withdrawal Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the wallet"
+      },
+      {
+        "type": "action",
+        "description": "Select PayPal as the payout method"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the payout detail field with a valid PayPal account identifier"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a withdrawal amount below the minimum"
+      },
+      {
+        "type": "action",
+        "description": "Submit the withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a withdrawal amount validation error is visible"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC019",
+    "title": "See a fallback referral link when the site URL is unavailable",
+    "description": "An authenticated member can open referrals and still see a usable invite link even when the site URL fallback is needed.",
+    "category": "Referral Sharing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the referrals section link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a referral link is displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC020",
+    "title": "Load the referral page with no referral activity",
+    "description": "An authenticated member can open referrals and see an empty state when they have no referral activity.",
+    "category": "Referral Sharing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the referrals section link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is visible"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC021",
+    "title": "View admin withdrawal management empty state",
+    "description": "An authenticated admin can open withdrawal management and see an empty state when there are no requests.",
+    "category": "Admin Withdrawal Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the admin withdrawals section link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is visible"
+      }
+    ],
+    "priority": "Low"
+  }
+]

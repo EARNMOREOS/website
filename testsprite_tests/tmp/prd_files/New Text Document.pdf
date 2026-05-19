@@ -1,0 +1,254 @@
+1. Project Overview
+
+This project is a web-based reward earning platform where users can create accounts, complete tasks, earn rewards, refer friends, and request withdrawals.
+
+The platform includes both a user dashboard and an admin panel.
+
+The goal of the project is to build a scalable low-cost earning platform capable of supporting thousands of users while keeping hosting and backend costs minimal.
+
+2. Main Objectives
+Allow users to register and log in securely
+Allow users to complete earning tasks
+Provide referral-based rewards
+Allow users to request withdrawals
+Allow admins to manage users and withdrawals
+Create a modern responsive UI
+Use free or low-cost cloud services initially
+3. Technology Stack
+Frontend
+Next.js
+HTML
+CSS
+JavaScript
+Tailwind CSS
+Backend
+Supabase
+Authentication
+Supabase Authentication
+Hosting
+Vercel
+Cloudflare Pages (optional frontend hosting)
+4. User Features
+4.1 User Registration
+
+Users can:
+
+Create a new account
+Register using email and password
+Log in securely
+Log out
+Reset password
+4.2 User Dashboard
+
+The dashboard should display:
+
+User profile information
+Wallet balance
+Completed tasks
+Referral earnings
+Withdrawal history
+Available tasks
+4.3 Earning Tasks
+
+Users can:
+
+View available tasks
+Complete tasks
+Receive rewards after task completion
+Track completed tasks
+
+Task types may include:
+
+Watching ads
+Visiting websites
+Clicking links
+Completing offers
+Referral tasks
+4.4 Referral System
+
+Users receive:
+
+A unique referral link
+Referral bonus after successful signup
+Additional earnings for referral activity
+
+Referral features:
+
+Referral count
+Referral earnings history
+Referral statistics
+4.5 Wallet System
+
+The wallet should:
+
+Display current balance
+Display earnings history
+Display withdrawal history
+Update automatically after rewards
+4.6 Withdrawals
+
+Users can:
+
+Request withdrawals
+View withdrawal status
+Cancel pending withdrawals (optional)
+
+Withdrawal statuses:
+
+Pending
+Approved
+Rejected
+Paid
+
+Minimum withdrawal amount:
+
+₹100
+5. Admin Panel Features
+5.1 Admin Authentication
+
+Admins must:
+
+Log in securely
+Access protected admin routes
+5.2 Dashboard Overview
+
+Admin dashboard should display:
+
+Total users
+Total earnings
+Pending withdrawals
+Completed withdrawals
+Site statistics
+5.3 User Management
+
+Admins can:
+
+View users
+Ban users
+Delete users
+Edit user balances
+View referral information
+5.4 Withdrawal Management
+
+Admins can:
+
+Approve withdrawals
+Reject withdrawals
+Mark withdrawals as paid
+View withdrawal requests
+5.5 Task Management
+
+Admins can:
+
+Add tasks
+Edit tasks
+Delete tasks
+Set task rewards
+6. Database Structure
+
+Main database tables:
+
+users
+
+Stores:
+
+User profile
+Email
+Balance
+Referral code
+Account status
+tasks
+
+Stores:
+
+Task information
+Reward amount
+Task status
+completed_tasks
+
+Stores:
+
+Completed task history
+User task records
+withdrawals
+
+Stores:
+
+Withdrawal requests
+Payment status
+Withdrawal amount
+referrals
+
+Stores:
+
+Referral relationships
+Referral bonuses
+7. Security Requirements
+
+The application should:
+
+Protect admin routes
+Use authentication middleware
+Prevent unauthorized access
+Validate all form inputs
+Secure API routes
+Protect against spam and abuse
+8. UI/UX Requirements
+
+The platform should:
+
+Be mobile responsive
+Have a clean modern design
+Load quickly
+Support desktop and mobile devices
+Use easy navigation
+9. Performance Goals
+
+The system should:
+
+Support 2000–3000 users per day initially
+Use free-tier infrastructure when possible
+Scale later if traffic increases
+10. Future Improvements
+
+Possible future features:
+
+Daily bonuses
+Leaderboards
+Push notifications
+Multiple withdrawal methods
+AI-based fraud detection
+Multi-language support
+Mobile application
+11. Deployment Requirements
+
+Deployment platforms:
+
+Vercel
+Cloudflare Pages
+
+Environment variables should be configured securely.
+
+12. Testing Requirements
+
+The application should be tested for:
+
+Authentication flow
+Dashboard loading
+Task completion
+Referral tracking
+Withdrawal system
+Admin panel security
+Database operations
+Mobile responsiveness
+13. Project Goal Summary
+
+The goal is to create a scalable earning platform with:
+
+Modern UI
+Secure authentication
+Reward-based earning system
+Referral system
+Admin management system
+Low initial operational cost
+Future scalability

@@ -1,0 +1,17 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "website",
+    "projectPath": "d:\\website",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "production",
+    "envs": {
+      "API_KEY": "sk-user-MILy5DgnD5KLG-M4oFlwlt5kMWS1MabXtzH34TMMpmU5-S_CDN3v6oODR-jzkenD2zYTs2g6WT8vLfKxg1mImbpM20Se8PmuyCSMD-3opDB0XzKtCx6ad0apzDBGXslg5iA"
+    }
+  },
+  "serverPort": 61160
+}

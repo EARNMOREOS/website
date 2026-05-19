@@ -1,16 +1,64 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const seedPromiseRef = useRef<Promise<void> | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [seeding, setSeeding] = useState(false);
+  const [seeded, setSeeded] = useState(false);
+  const signupSuccess = searchParams.get("signupSuccess") === "1";
+
+  useEffect(() => {
+    const hostname = typeof window !== "undefined" ? window.location.hostname : "";
+    const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+
+    if (!isLocalhost) {
+      return;
+    }
+
+    async function seedTestUser() {
+      setSeeding(true);
+      const promise = (async () => {
+        try {
+          const res = await fetch("/api/dev/seed-test-users");
+          if (res.ok) {
+            setSeeded(true);
+          }
+        } catch (error) {
+          // Ignore seeding failures on local test environments.
+        } finally {
+          setSeeding(false);
+        }
+      })();
+
+      seedPromiseRef.current = promise;
+      await promise;
+    }
+
+    seedTestUser();
+  }, []);
+
+  async function ensureSeeded() {
+    if (seeded) {
+      return;
+    }
+
+    if (seedPromiseRef.current) {
+      await seedPromiseRef.current;
+      return;
+    }
+
+    await seedTestUser();
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +66,10 @@ export default function LoginPage() {
     setError("");
 
     try {
+      if (!seeded) {
+        await ensureSeeded();
+      }
+
       const res = await signIn("credentials", {
         redirect: false,
         email,
@@ -51,6 +103,11 @@ export default function LoginPage() {
           <p className="text-text-muted text-sm">Log in to your account to continue earning.</p>
         </div>
 
+        {signupSuccess && (
+          <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/50 rounded-lg text-emerald-500 text-sm text-center">
+            Registration successful. Please log in.
+          </div>
+        )}
         {error && (
           <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm text-center">
             {error}
@@ -91,10 +148,10 @@ export default function LoginPage() {
 
           <button 
             type="submit"
-            disabled={loading}
+            disabled={loading || seeding}
             className="w-full bg-brand-purple hover:bg-brand-purple-dark disabled:opacity-50 text-white font-bold py-3 px-4 rounded-lg transition-all shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] mt-2"
           >
-            {loading ? "Logging in..." : "Log In"}
+            {seeding ? "Preparing account..." : loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 

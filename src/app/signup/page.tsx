@@ -42,7 +42,7 @@ function SignupForm() {
       });
 
       if (res.ok) {
-        router.push("/login");
+        router.push("/login?signupSuccess=1");
       } else {
         const data = await res.json();
         setError(data.message || "Registration failed");
