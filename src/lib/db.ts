@@ -1,6 +1,12 @@
-import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaNeon } from '@prisma/adapter-neon';
 import { PrismaClient } from '@prisma/client';
-import { Pool } from 'pg';
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import ws from 'ws';
+
+// Set up WebSocket support for local development in Node.js
+if (process.env.NODE_ENV === 'development') {
+  neonConfig.webSocketConstructor = ws;
+}
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -13,7 +19,7 @@ if (!globalForPrisma.pool) {
   globalForPrisma.pool = new Pool({ connectionString });
 }
 
-const adapter = new PrismaPg(globalForPrisma.pool);
+const adapter = new PrismaNeon(globalForPrisma.pool as any);
 
 export const prisma =
   globalForPrisma.prisma ??
@@ -23,3 +29,4 @@ export const prisma =
   });
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+

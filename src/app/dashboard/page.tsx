@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { ArrowRight, PlayCircle, Share2, Target, Trophy, Wallet } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

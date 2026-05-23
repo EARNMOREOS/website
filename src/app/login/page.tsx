@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const seedPromiseRef = useRef<Promise<void> | null>(null);
@@ -17,31 +17,31 @@ export default function LoginPage() {
   const [seeded, setSeeded] = useState(false);
   const signupSuccess = searchParams.get("signupSuccess") === "1";
 
+  async function seedTestUser() {
+    setSeeding(true);
+    const promise = (async () => {
+      try {
+        const res = await fetch("/api/dev/seed-test-users");
+        if (res.ok) {
+          setSeeded(true);
+        }
+      } catch (error) {
+        // Ignore seeding failures on local test environments.
+      } finally {
+        setSeeding(false);
+      }
+    })();
+
+    seedPromiseRef.current = promise;
+    await promise;
+  }
+
   useEffect(() => {
     const hostname = typeof window !== "undefined" ? window.location.hostname : "";
     const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
 
     if (!isLocalhost) {
       return;
-    }
-
-    async function seedTestUser() {
-      setSeeding(true);
-      const promise = (async () => {
-        try {
-          const res = await fetch("/api/dev/seed-test-users");
-          if (res.ok) {
-            setSeeded(true);
-          }
-        } catch (error) {
-          // Ignore seeding failures on local test environments.
-        } finally {
-          setSeeding(false);
-        }
-      })();
-
-      seedPromiseRef.current = promise;
-      await promise;
     }
 
     seedTestUser();
@@ -179,5 +179,17 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen bg-background-dark text-text-main items-center justify-center p-4">
+        <p className="text-text-muted">Loading...</p>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }

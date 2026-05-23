@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const hostname = url.hostname;
